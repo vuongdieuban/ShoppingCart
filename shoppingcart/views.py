@@ -14,15 +14,18 @@ def cart_home_view(request):
         total_price = total_price + product.price
     cart_obj.total = total_price
     cart_obj.save()
-    context = {}
+    context = {
+        "cart": cart_obj,
+    }
     return render(request, template_name, context)
 
 
 def cart_update_view(request):
-    template_name = "shoppingcart/cart_home.html"
-    product_obj = Product.objects.get(id=3)
+    product_id = request.POST.get('product_id')
+    product_obj = Product.objects.get(id=product_id)
     cart_obj = Cart.objects.new_or_get(request)
-    cart_obj.products.add(product_obj)  # add data into ManytoMany field
+
+    # cart_obj.products.add(product_obj)  # add data into ManytoMany field
     if product_obj in cart_obj.products.all():
         cart_obj.products.remove(product_obj)
     else:

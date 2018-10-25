@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for object in object_list %}
-{{object.name}} <br />
-{{object.price}} <br />
-<a class="btn btn-primary" href="#" role="button">Add</a> <br />
-{% endfor %}
+<div class="row">
+    <div class="col-12 col-md-6">
+    {% for product in product_list %}
+        {{product.name}} <br/>
+        {{product.price}}
+        
+        <div class="col-12 col-md-6">
+            {% include "product/update_cart.html" with product=product cart=cart %}
+        </div>
+    {% endfor %}
+    </div>  
+</div>
 {% endblock content %}
