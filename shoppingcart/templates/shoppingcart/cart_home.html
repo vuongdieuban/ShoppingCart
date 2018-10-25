@@ -1,15 +1,36 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-<h3>Here are what you have so far: </h3>
-{% if cart.products.exists %}
-    <p>your cart has:</p>
-    {% for product in cart.products.all %}
-        Product name: {{product.name}} <br/>
-        Price: {{product.price}} <br/>
-    {% endfor %}
-    Total: {{cart.total}}
-{% else %}
-    <p>Cart is empty</p>
-{% endif %}
+<a href="{% url 'product:product-list' %}">Home</a>
+<div class="container">
+    <h2>Cart</h2>          
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if cart.products.exists %}
+            {% for product in cart.products.all %}
+            <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+            <td>Emtpy</td>
+            <td>Empty</td>
+            </tr> 
+        {% endif %}
+      </tbody>
+      <tr>
+          <th>Total:</th>
+          <th>{{cart.total}}</th>
+      </tr>
+    </table>
+  </div>
 {% endblock content %}
