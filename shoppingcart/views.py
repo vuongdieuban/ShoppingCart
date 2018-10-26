@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
 from product.models import Product
 from .models import Cart
 # Create your views here.
@@ -21,7 +24,9 @@ def cart_home_view(request):
 
 
 def cart_update_view(request):
-    product_id = request.POST.get('product_id')
+    #product_id = request.POST.get('product_id') # for conventional post method, look up key is 'product_id'
+    product_id = request.POST.get('id') # for ajax method, lookup key is 'id'
+    print(product_id)
     product_obj = Product.objects.get(id=product_id)
     cart_obj = Cart.objects.new_or_get(request)
 
@@ -31,4 +36,10 @@ def cart_update_view(request):
     else:
         cart_obj.products.add(product_obj)
     request.session['cart_items'] = cart_obj.products.count()
-    return redirect("cart:cart-home")
+    context = {
+        'cart': cart_obj,
+    }
+    # return redirect("cart:cart-home")
+    if request.is_ajax():
+        html = render_to_string('product/update_cart.html', context, request=request)
+        return JsonResponse({'form': html})

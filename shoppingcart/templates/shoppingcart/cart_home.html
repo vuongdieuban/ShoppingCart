@@ -2,9 +2,9 @@
 
 
 {% block content %}
-<!-- <a href="{% url 'product:product-list' %}">Home</a> -->
 <div class="container">
-    <h2>Cart</h2>          
+    <h2>Cart</h2>      
+    {% if cart.products.exists %}    
     <table class="table">
       <thead>
         <tr>
@@ -13,7 +13,6 @@
         </tr>
       </thead>
       <tbody>
-        {% if cart.products.exists %}
             {% for product in cart.products.all %}
             <tr>
             <td>{{product.name}}
@@ -21,13 +20,7 @@
             </td>
             <td>{{product.price}}</td>
             </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-            <td>Emtpy</td>
-            <td>Empty</td>
-            </tr> 
-        {% endif %}
+            {% endfor %} 
       </tbody>
       <tr>
           <th>Total:</th>
@@ -35,4 +28,7 @@
       </tr>
     </table>
   </div>
+  {% else %}
+  <p>Cart is empty</p>
+  {% endif %}
 {% endblock content %}
