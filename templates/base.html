@@ -18,6 +18,8 @@
     </div>
     <h2>Hello {{request.user}}</h2>
 
+    {% include "nav_bar.html" %}
+
     {% block content %}
     replace me
     {% endblock content %}

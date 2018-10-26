@@ -24,7 +24,7 @@ class CartManager(models.Manager):
         if cart_id is None:
             cart_obj = self.new_cart(user=request.user)
             request.session["cart_id"] = cart_obj.id
-            print("new cart id created")
+            print("new cart id created, new id is", request.session["cart_id"])
 
         # if we do have a cart id then assign it to the cart obj. If the user is then log in, we associate the cart to the user
         else:

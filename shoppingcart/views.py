@@ -25,10 +25,10 @@ def cart_update_view(request):
     product_obj = Product.objects.get(id=product_id)
     cart_obj = Cart.objects.new_or_get(request)
 
-    # cart_obj.products.add(product_obj)  # add data into ManytoMany field
+    # add data into ManytoMany field
     if product_obj in cart_obj.products.all():
         cart_obj.products.remove(product_obj)
     else:
         cart_obj.products.add(product_obj)
-    # return render(request, template_name, context)
+    request.session['cart_items'] = cart_obj.products.count()
     return redirect("cart:cart-home")

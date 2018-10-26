@@ -1,0 +1,16 @@
+{% url 'product:product-list' as product_list_url %}
+{% url 'cart:cart-home' as cart_url %}
+
+<nav class="navbar navbar-expand-sm bg-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+        <a class="nav-link" href="{{product_list_url}}">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{cart_url}}">Cart {{request.session.cart_items}}</a>
+        </li>
+    </ul>
+</nav>
+
+
+    

@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<a href="{% url 'product:product-list' %}">Home</a>
+<!-- <a href="{% url 'product:product-list' %}">Home</a> -->
 <div class="container">
     <h2>Cart</h2>          
     <table class="table">
@@ -16,7 +16,9 @@
         {% if cart.products.exists %}
             {% for product in cart.products.all %}
             <tr>
-            <td>{{product.name}}</td>
+            <td>{{product.name}}
+                {% include "product/update_cart.html" with product=product cart=cart in_cart=True %}
+            </td>
             <td>{{product.price}}</td>
             </tr>
             {% endfor %}
