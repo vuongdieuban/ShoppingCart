@@ -42,7 +42,7 @@
                     data: {'id': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
                     dataType: 'json',
                     success: function(response){
-                        $('.container').html(response['form'])
+                        $('#update-section').html(response['form'])
                         console.log($('#update-section').html(response['form']));
                     },
                     error: function(rs, e){
