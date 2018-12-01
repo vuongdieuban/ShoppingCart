@@ -32,27 +32,32 @@
         crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function(event){
-            $(document).on('click', '#update', function(event){
+        $(document).ready(function (event) {
+            $(document).on('click', '#update', function (event) {
                 event.preventDefault();
                 var pk = $(this).attr('value');
+                console.log(pk);
                 $.ajax({
                     type: 'POST',
                     url: '{% url "cart:cart-update" %}',
-                    data: {'id': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    data: {
+                        'id': pk,
+                        'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                    },
                     dataType: 'json',
                     success: function(response){
                         $('#update-section').html(response['form'])
                         console.log($('#update-section').html(response['form']));
+                        location.reload(true);
                     },
-                    error: function(rs, e){
+                    error: function (rs, e) {
                         console.log(rs.responseText);
                     },
                 });
             });
         });
     </script>
-        
+
 </body>
 
 </html>

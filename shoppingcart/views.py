@@ -24,10 +24,14 @@ def cart_home_view(request):
 
 
 def cart_update_view(request):
-    #product_id = request.POST.get('product_id') # for conventional post method, look up key is 'product_id'
-    product_id = request.POST.get('id') # for ajax method, lookup key is 'id'
+    # for conventional post method, look up key is 'product_id'
+    # product_id = request.POST.get('product_id')
+
+    # for ajax method, lookup key is 'id'
+    product_id = request.POST.get('id')
     print(product_id)
     product_obj = Product.objects.get(id=product_id)
+    product_list = Product.objects.all()
     cart_obj = Cart.objects.new_or_get(request)
 
     # add data into ManytoMany field
@@ -38,8 +42,11 @@ def cart_update_view(request):
     request.session['cart_items'] = cart_obj.products.count()
     context = {
         'cart': cart_obj,
+        'product_list': product_list,
+
     }
     # return redirect("cart:cart-home")
     if request.is_ajax():
-        html = render_to_string('product/update_cart.html', context, request=request)
+        html = render_to_string(
+            'product/update_cart.html', context, request=request)
         return JsonResponse({'form': html})
