@@ -1,5 +1,6 @@
 # ShoppingCart
-Shopping Cart using Django
+Shopping Cart using Django  
+Visit on cart.banvuong.com
 
 Implemented Functionalities:  
 •	Use sessions to support anonymous users as well as logged in user  
